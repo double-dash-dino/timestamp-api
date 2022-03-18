@@ -21,8 +21,13 @@ app.get("/api", function (req, res) {
 
 app.get("/api/:date", function (req, res) {
   const isDate = (date) => {
-    return !isNaN(Date.parse(date));
+    if (date.length < 7) {
+      return false;
+    } else {
+      return !isNaN(Date.parse(date));
+    }
   };
+
   // If date, return correct json object, else return error
   if (isDate(req.params.date)) {
     res.send(makeDateJsonObject(req.params.date));
