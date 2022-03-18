@@ -14,16 +14,19 @@ app.get("/api", function (req, res) {
 });
 
 app.get("/api/:date", function (req, res) {
+  let date = req.params.date;
   //   If date, return correct json object, else return error
-  if (moment(req.params.date, "x", true).isValid()) {
+  if (moment(date, "x", true).isValid()) {
     res.send({
-      unix: req.params.date,
-      utc: new Date(parseInt(req.params.date, 10)).toString(),
+      unix: date,
+      utc: moment(new Date(parseInt(date / 1000, 10))).format(
+        "ddd D MMM YYYY HH:MM:SS [GMT]"
+      ),
     });
-  } else if (moment(req.params.date, "YYYY-MM-DD", true).isValid()) {
+  } else if (moment(date, "YYYY-MM-DD", true).isValid()) {
     res.send({
-      unix: moment(req.params.date).format("x") * 1000,
-      utc: moment(req.params.date).format("ddd D MMM YYYY HH:MM:SS [GMT]"),
+      unix: moment(date).format("x") * 1000,
+      utc: moment(date).format("ddd D MMM YYYY HH:MM:SS [GMT]"),
     });
   } else {
     res.send("error: Invalid Date");
