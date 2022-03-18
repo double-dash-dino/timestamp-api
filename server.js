@@ -29,7 +29,7 @@ app.get("/api/:date", function (req, res) {
       utc: moment(date).format("ddd D MMM YYYY HH:MM:SS [GMT]"),
     });
   } else {
-    res.send("error: Invalid Date");
+    res.send({ error: "Invalid Date" });
   }
 });
 
