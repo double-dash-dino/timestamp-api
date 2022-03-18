@@ -42,3 +42,7 @@ app.get("/api/:date", function (req, res) {
     res.send({ error: "Invalid Date" });
   }
 });
+
+const listener = app.listen(5000, function () {
+  console.log("app running on port 5000");
+});
